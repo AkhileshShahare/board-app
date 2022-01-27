@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import { Column } from "./components/Column";
+import { AppContainer } from "./styles";
 
-function App() {
+export const App = () => {
+  const lists: List[] = useSelector((state: CardsState) => state.lists);
+
+  console.log("lists", lists)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      {lists.map((list,i) => (
+        <Column key={list.id} id={list.id} text={list.text} index={i}/>
+      ))}
+    </AppContainer>
   );
-}
-
-export default App;
+};
